@@ -8,7 +8,8 @@ import (
 	"encoding/json"
 
 	"github.com/gorilla/mux"
-	"github.com/gin-gonic/gin"
+	"github.com/gorilla/handlers"
+	// "github.com/gin-gonic/gin"
 )
 
 type event struct {
@@ -99,6 +100,8 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 }
 
 func main(){
+	// router := gin.Default()
+
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homeLink)
 	router.HandleFunc("/event", createEvent).Methods("POST")
@@ -106,5 +109,5 @@ func main(){
 	router.HandleFunc("/events/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events/{id}", updateEvent).Methods("PATCH")
 	router.HandleFunc("/events/{id}", deleteEvent).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(router)))
 }

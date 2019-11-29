@@ -20,9 +20,26 @@ class EventsList extends Component {
     return (
       <>
         <div>
-          {this.state.events.map(event => (
-            <p>{event.title}</p>
-          ))}
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {this.state.events.map(event => (
+                <tr key={event.ID}>
+                  <td>{event.ID}</td>
+                  <td>{event.Title}</td>
+                  <td>{event.Description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </>
     );
