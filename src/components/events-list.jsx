@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table, Button } from 'react-bootstrap';
 
 class EventsList extends Component {
   state = {
@@ -19,8 +20,8 @@ class EventsList extends Component {
   render() {
     return (
       <>
-        <div>
-          <table>
+        <div className='container'>
+          <Table striped bordered hover variant='dark'>
             <thead>
               <tr>
                 <th>ID</th>
@@ -36,10 +37,14 @@ class EventsList extends Component {
                   <td>{event.ID}</td>
                   <td>{event.Title}</td>
                   <td>{event.Description}</td>
+                  <td>
+                    <Button className='btn btn-danger'>Delete</Button>{' '}
+                    <Button>Edit</Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </>
     );
