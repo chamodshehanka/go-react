@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
+import Axios from 'axios';
 
 class EventsList extends Component {
   state = {
@@ -7,14 +8,20 @@ class EventsList extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:8080/events')
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          events: data
-        });
-      })
-      .catch(console.log);
+    // fetch('http://localhost:8080/events')
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     this.setState({
+    //       events: data
+    //     });
+    //   })
+    //   .catch(console.log);
+
+    Axios.get('http://localhost:8080/events').then(res => {
+      this.setState({
+        events: res.data
+      });
+    });
   }
 
   render() {
