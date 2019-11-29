@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 
 	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
 type event struct {
