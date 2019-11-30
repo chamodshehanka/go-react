@@ -24,6 +24,25 @@ class EventsList extends Component {
     });
   }
 
+  onDelete = e => {
+    console.log(`http://localhost:8080/events/${e}`);
+    Axios.delete(`http://localhost:8080/events/${e}`, {
+      method: 'DELETE',
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <>
@@ -45,7 +64,12 @@ class EventsList extends Component {
                   <td>{event.Title}</td>
                   <td>{event.Description}</td>
                   <td>
-                    <Button className='btn btn-danger'>Delete</Button>{' '}
+                    <Button
+                      className='btn btn-danger'
+                      onClick={this.onDelete.bind(this, event.ID)}
+                    >
+                      Delete
+                    </Button>{' '}
                     <Button>Edit</Button>
                   </td>
                 </tr>
