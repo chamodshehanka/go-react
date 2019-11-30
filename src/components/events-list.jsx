@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
-import Axios from 'axios';
+import axios from 'axios';
+// import fetch from 'isomorphic-fetch';
 
 class EventsList extends Component {
   state = {
@@ -17,7 +18,7 @@ class EventsList extends Component {
     //   })
     //   .catch(console.log);
 
-    Axios.get('http://localhost:8080/events').then(res => {
+    axios.get('http://localhost:8080/events').then(res => {
       this.setState({
         events: res.data
       });
@@ -25,22 +26,38 @@ class EventsList extends Component {
   }
 
   onDelete = e => {
-    console.log(`http://localhost:8080/events/${e}`);
-    Axios.delete(`http://localhost:8080/events/${e}`, {
-      method: 'DELETE',
-      mode: 'no-cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
+    // console.log(`http://localhost:8080/events/${e}`);
+    axios
+      .delete(`http://localhost:8080/events/${e}`, {
+        method: 'DELETE',
+        mode: 'no-cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+        credentials: 'same-origin',
+        crossdomain: true
+      })
       .then(res => {
-        console.log(res);
+        console.log('Response' + res);
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error: ' + err);
       });
+
+    // fetch('http://localhost:8080/events/' + e, {
+    //   method: 'DELETE',
+    //   body: JSON.stringify(e),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => console.log(err));
   };
 
   render() {

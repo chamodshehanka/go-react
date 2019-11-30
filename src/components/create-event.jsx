@@ -19,7 +19,7 @@ class CreateEvent extends Component {
 
     fetch('http://localhost:8080/event', {
       method: 'POST',
-      mode: "no-cors",
+      mode: 'no-cors',
       body: JSON.stringify({ ID, Title, Description }),
       headers: {
         'Content-Type': 'application/json'
@@ -52,7 +52,6 @@ class CreateEvent extends Component {
                   type='text'
                   name='ID'
                   placeholder='ID'
-                  id=''
                   onChange={this.onChange}
                 />
               </Col>
@@ -63,7 +62,6 @@ class CreateEvent extends Component {
                   type='text'
                   name='Title'
                   placeholder='Title'
-                  id=''
                   onChange={this.onChange}
                 />
               </Col>
@@ -74,7 +72,6 @@ class CreateEvent extends Component {
                   type='text'
                   name='Description'
                   placeholder='Description'
-                  id=''
                   onChange={this.onChange}
                 />
               </Col>
