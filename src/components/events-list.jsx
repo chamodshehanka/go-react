@@ -28,18 +28,7 @@ class EventsList extends Component {
   onDelete = e => {
     // console.log(`http://localhost:8080/events/${e}`);
     axios
-      .delete(`http://localhost:8080/events/${e}`, {
-        method: 'DELETE',
-        mode: 'no-cors',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true,
-        credentials: 'same-origin',
-        crossdomain: true
-      })
+      .delete(`http://localhost:8080/events/${e}`)
       .then(res => {
         console.log('Response' + res);
       })

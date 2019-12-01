@@ -9,7 +9,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
-	// "github.com/gin-gonic/gin"
 )
 
 type event struct {
@@ -82,6 +81,14 @@ func updateEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteEvent(w http.ResponseWriter, r *http.Request) {
+
+	log.Print("preflight detected: ", r.Header)
+	w.Header().Add("Connection", "keep-alive") 
+	w.Header().Add("Access-Control-Allow-Origin", "http://localhost:8080") 
+	w.Header().Add("Access-Control-Allow-Methods", "POST, OPTIONS, GET, DELETE, PUT") 
+	w.Header().Add("Access-Control-Allow-Headers", "content-type") 
+	w.Header().Add("Access-Control-Max-Age", "86400")
+
 	// Get the ID from the url
 	eventID := mux.Vars(r)["id"]
 
@@ -97,17 +104,22 @@ func deleteEvent(w http.ResponseWriter, r *http.Request) {
 
 func homeLink(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome back!")
+	fmt.Println("Go server is running!!")
 }
 
 func main(){
-	// router := gin.Default()
 
 	router := mux.NewRouter().StrictSlash(true)
+	mux.CORSMethodMiddleware(router)
 	router.HandleFunc("/", homeLink)
 	router.HandleFunc("/event", createEvent).Methods("POST")
 	router.HandleFunc("/events", getAllEvents).Methods("GET")
 	router.HandleFunc("/events/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events/{id}", updateEvent).Methods("PATCH")
 	router.HandleFunc("/events/{id}", deleteEvent).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(router)))
+
+	headers := handlers.AllowedHeaders([]string{"Access-Control-Allow-Origin","X-Requested-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(headers, methods, origins)(router)))
 }

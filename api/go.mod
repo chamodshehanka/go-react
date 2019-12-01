@@ -3,13 +3,14 @@ module github.com/Shehanka/go-react
 require (
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-playground/universal-translator v0.17.0 // indirect
-	github.com/gorilla/handlers v1.4.2 // indirect
+	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.7.3
 	github.com/json-iterator/go v1.1.8 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.10 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/rs/cors v1.7.0
 	github.com/stretchr/objx v0.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20191128160524-b544559bb6d1 // indirect
 	golang.org/x/net v0.0.0-20191126235420-ef20fe5d7933 // indirect
