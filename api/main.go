@@ -28,6 +28,9 @@ var events = allEvents{
 }
 
 func createEvent(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("Create one Request!!")
+
 	var newEvent event
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -46,6 +49,9 @@ func getAllEvents(w http.ResponseWriter, r *http.Request) {
 }
 
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("Get one Request!!")
+
 	// Get the ID from the url
 	eventID := mux.Vars(r)["id"]
 
@@ -59,6 +65,9 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 }
 
 func updateEvent(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("Update Request!!")
+
 	// Get the ID from the url
 	eventID := mux.Vars(r)["id"]
 	var updatedEvent event
