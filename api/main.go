@@ -82,9 +82,11 @@ func updateEvent(w http.ResponseWriter, r *http.Request) {
 
 func deleteEvent(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Println("Delete request!!")
+
 	log.Print("preflight detected: ", r.Header)
 	w.Header().Add("Connection", "keep-alive") 
-	w.Header().Add("Access-Control-Allow-Origin", "http://localhost:8080") 
+	w.Header().Add("Access-Control-Allow-Origin", "http://localhost:3000") 
 	w.Header().Add("Access-Control-Allow-Methods", "POST, OPTIONS, GET, DELETE, PUT") 
 	w.Header().Add("Access-Control-Allow-Headers", "content-type") 
 	w.Header().Add("Access-Control-Max-Age", "86400")
@@ -117,6 +119,15 @@ func main(){
 	router.HandleFunc("/events/{id}", getOneEvent).Methods("GET")
 	router.HandleFunc("/events/{id}", updateEvent).Methods("PATCH")
 	router.HandleFunc("/events/{id}", deleteEvent).Methods("DELETE")
+
+	router.Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// fmt.Printf("OPTIONS")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Access-Control-Request-Headers, Access-Control-Request-Method, Connection, Host, Origin, User-Agent, Referer, Cache-Control, X-header")
+		w.WriteHeader(http.StatusNoContent)
+		return
+	})
 
 	headers := handlers.AllowedHeaders([]string{"Access-Control-Allow-Origin","X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
