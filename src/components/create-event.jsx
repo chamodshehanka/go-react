@@ -44,6 +44,7 @@ class CreateEvent extends Component {
     return (
       <>
         <div className='container'>
+          <br />
           <form onSubmit={this.onSubmit}>
             <Row>
               <Col>

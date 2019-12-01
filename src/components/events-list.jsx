@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
-// import fetch from 'isomorphic-fetch';
 
 class EventsList extends Component {
   state = {
@@ -9,15 +8,6 @@ class EventsList extends Component {
   };
 
   componentDidMount() {
-    // fetch('http://localhost:8080/events')
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     this.setState({
-    //       events: data
-    //     });
-    //   })
-    //   .catch(console.log);
-
     axios.get('http://localhost:8080/events').then(res => {
       this.setState({
         events: res.data
@@ -26,27 +16,27 @@ class EventsList extends Component {
   }
 
   onDelete = e => {
-    // console.log(`http://localhost:8080/events/${e}`);
     axios
       .delete(`http://localhost:8080/events/${e}`)
       .then(res => {
-        console.log('Response' + res);
+        console.log(res.data);
+        this.componentDidMount();
       })
       .catch(err => {
-        console.log('Error: ' + err);
+        console.log(err);
       });
+  };
 
-    // fetch('http://localhost:8080/events/' + e, {
-    //   method: 'DELETE',
-    //   body: JSON.stringify(e),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => console.log(err));
+  onEdit = e => {
+    axios
+      .patch('http://localhost:8080/events/' + e)
+      .then(res => {
+        console.log(res);
+        this.componentDidMount();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -76,7 +66,9 @@ class EventsList extends Component {
                     >
                       Delete
                     </Button>{' '}
-                    <Button>Edit</Button>
+                    <Button onClick={this.onEdit.bind(this, event)}>
+                      Edit
+                    </Button>
                   </td>
                 </tr>
               ))}
