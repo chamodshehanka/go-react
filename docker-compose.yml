@@ -1,0 +1,19 @@
+version: '3.7'
+
+services: 
+  client:
+    build: .
+    volumes: 
+      - './'
+    ports: 
+      - '3000:3000'
+    depends_on: 
+      - api
+  
+  api:
+    build: .
+    volumes: 
+      - './api'
+    ports: 
+      - '8080:8080'
+      
