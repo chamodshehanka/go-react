@@ -67,6 +67,7 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 func updateEvent(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Update Request!!")
+	fmt.Println(r.Body)
 
 	// Get the ID from the url
 	eventID := mux.Vars(r)["id"]

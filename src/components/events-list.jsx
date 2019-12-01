@@ -29,7 +29,11 @@ class EventsList extends Component {
 
   onEdit = e => {
     axios
-      .patch('http://localhost:8080/events/' + e)
+      .patch('http://localhost:8080/events/' + e.ID, {
+        ID: e.ID,
+        Title: 'go lang',
+        Description: 'Angular flutter'
+      })
       .then(res => {
         console.log(res);
         this.componentDidMount();
@@ -37,6 +41,10 @@ class EventsList extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  onRowSelect = e => {
+    console.log(e);
   };
 
   render() {
@@ -55,7 +63,7 @@ class EventsList extends Component {
 
             <tbody>
               {this.state.events.map(event => (
-                <tr key={event.ID}>
+                <tr key={event.ID} onClick={this.onRowSelect.bind(this, event)}>
                   <td>{event.ID}</td>
                   <td>{event.Title}</td>
                   <td>{event.Description}</td>
